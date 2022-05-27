@@ -1,0 +1,16 @@
+{
+    "git.ignoreLimitWarning": true,
+    "files.associations": {
+        "type_traits": "cpp",
+        "iostream": "cpp",
+        "system_error": "cpp",
+        "pthread.h": "c",
+        "in.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "stdbool.h": "c",
+        "socket_error_proxy.h": "c",
+        "forward_list_int.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

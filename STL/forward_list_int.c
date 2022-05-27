@@ -31,19 +31,14 @@ void ForEach (void (* callback) (int number))
 
 forward_list_int forward_list_int_init()
 {
-    forward_list_int_element temptemp = {
+    forward_list_int empty_list = {
         0, 
-        NULL
-    };
-
-    forward_list_int temp = {
-        0, 
-        &temptemp,
+        NULL,
 
         Add,
         Remove,
         ForEach
     };
 
-    return temp;
+    return empty_list;
 }

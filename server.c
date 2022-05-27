@@ -87,15 +87,15 @@ void waitFreeSocket()
 void * forwardingClient(void *arg)
 {
 	int fd = * (int *) arg;
+	int nread;
 
 	while(true)
 	{
 		char buf[256];
-		recv(fd, buf, 256, 0);
-		int nread = strlen(buf);
+		nread = recv(fd, buf, 256, 0);
 
 		if (nread == 0) {
-			continue;
+			break;
 		}
 
 		sendToRoom(buf, nread);

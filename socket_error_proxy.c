@@ -63,6 +63,7 @@ int Connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen)
 int Inet_pton(int af, const char *src, void *dist)
 {
 	int result = inet_pton(af, src, dist);
+
 	if (result == 0) {
 		perror("inet_pton failed: src does not contain character\n");
 		exit(EXIT_FAILURE);
@@ -71,4 +72,6 @@ int Inet_pton(int af, const char *src, void *dist)
 		perror("inet_pton failed");
 		exit(EXIT_FAILURE);
 	}
+
+	return result;
 }

@@ -1,23 +1,20 @@
 #include <stdio.h>
+#include <pthread.h>
+
 #include <string.h>
+#include <stdbool.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
-
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include <iostream>
-#include <pthread.h>
-
-#include "socketErrorProxy.c"
+#include "socket_error_proxy.c"
 
 void * grabAndPrintEnterMessages(void * arg);
 
 int fd;
-char serverAddress[256] {'\0'};
-
-char notPrintMessages[4096];
+char serverAddress[256];
 
 int main()
 {
@@ -38,7 +35,7 @@ int main()
 
 	while(true)
 	{
-		char message[256] {'\0'};
+		char message[256];
 		fgets(message, 256, stdin);
 		message[strlen(message) - 1] = '\0'; // перенос строки убираю
 		
@@ -54,7 +51,7 @@ void * grabAndPrintEnterMessages(void * arg)
 {
 	while (true)
 	{
-		char buf[256] {'\0'};
+		char buf[256];
 		recv(fd, buf, 256, 0);
 		printf("<> message: %s\n", buf);
 	}

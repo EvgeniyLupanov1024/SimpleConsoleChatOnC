@@ -6,7 +6,7 @@ struct forward_list_int {
 
     void (* add) (int number);
     void (* remove) (int number);
-    void (* for_each) ();
+    void (* for_each) (void (* callback) (int number));
 };
 
 struct forward_list_int_element {
@@ -24,7 +24,7 @@ void Remove (int number)
     
 }
 
-void ForEach () 
+void ForEach (void (* callback) (int number)) 
 {
     
 }
@@ -46,9 +46,4 @@ forward_list_int forward_list_int_init()
     };
 
     return temp;
-}
-
-void forward_list_int_delete(forward_list_int forward_list)
-{
-
 }

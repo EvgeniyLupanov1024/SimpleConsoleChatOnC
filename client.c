@@ -12,8 +12,10 @@
 #include "socket_error_proxy.c"
 
 void * grabAndPrintEnterMessages(void * arg);
+void * writeAndSendMessages(void * arg);
 
 int fd;
+const int bufferLen = 256;
 // char serverAddress[256];
 char serverAddress[256] = "127.0.0.1";
 
@@ -34,14 +36,7 @@ int main()
 	pthread_t thread;
 	pthread_create(&thread, NULL, grabAndPrintEnterMessages, NULL);
 
-	while(true)
-	{
-		char message[256];
-		fgets(message, 256, stdin);
-		message[strlen(message) - 1] = '\0'; // перенос строки убираю
-		
-		send(fd, message, strlen(message), 0);
-	}
+	writeAndSendMessages(NULL);
 
 	close(fd);
 
@@ -50,10 +45,29 @@ int main()
 
 void * grabAndPrintEnterMessages(void * arg)
 {
+	char buf[bufferLen];
+	int nread = bufferLen;
 	while (true)
 	{
-		char buf[256];
-		recv(fd, buf, 256, 0);
+		memset(buf, '\0', nread);
+
+		nread = recv(fd, buf, bufferLen, 0);
 		printf("<> message: %s\n", buf);
+	}
+}
+
+void * writeAndSendMessages(void * arg)
+{
+	char buf[bufferLen];
+	int nread = bufferLen;
+	while(true)
+	{
+		memset(buf, '\0', nread);
+
+		fgets(buf, bufferLen, stdin);
+		nread = strlen(buf);
+		buf[--nread] = '\0'; // перенос строки убираю
+		
+		send(fd, buf, nread, 0);
 	}
 }

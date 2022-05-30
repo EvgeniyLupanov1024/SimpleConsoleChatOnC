@@ -92,7 +92,7 @@ void * forwardingClient(void *arg)
 
 	while(true)
 	{
-		memset(buf, '\0', nread); // чищу буфер
+		memset(buf, '\0', nread);
 
 		nread = recv(fd, buf, bufferLen, 0);
 		if (nread == 0) {

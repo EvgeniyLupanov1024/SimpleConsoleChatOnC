@@ -12,7 +12,7 @@
 #include <arpa/inet.h>
 
 #include "socket_error_proxy.c"
-#include "STL/forward_list_int.c"
+#include "STL/list_int.c"
 
 void init();
 
@@ -20,15 +20,15 @@ void waitNewClientConect();
 void waitFreeSocket();
 void * forwardingClient(void *arg);
 
+bool SendCallback (list_int_node *node, void *arg);
 void sendToRoom(char *buf, int nread);
-void SendWrapper (int number);
 
 int serverSocket;
 struct sockaddr_in addr;
 socklen_t addrlen;
 
 int ConnectCount;
-forward_list_int connectedClientSocket;
+list_int connectedClientSocket;
 
 int main()
 {
@@ -56,7 +56,7 @@ int main()
 void init() 
 {
 	ConnectCount = 5;
-	connectedClientSocket = forward_list_int_init();
+	connectedClientSocket = list_int_init();
 }
 
 void waitNewClientConect()
@@ -64,7 +64,7 @@ void waitNewClientConect()
 	waitFreeSocket();
 
 	int fd = Accept(serverSocket, (struct sockaddr *) &addr, &addrlen);
-	connectedClientSocket.add(fd);
+	AddFirst(&connectedClientSocket, fd);
 
 	printf("some one connect\n");
 
@@ -102,7 +102,7 @@ void * forwardingClient(void *arg)
 	}
 
 	close(fd);
-	connectedClientSocket.remove(fd);
+	Remove(&connectedClientSocket, fd);
 
 	printf("some one disconnect\n");
 
@@ -113,11 +113,15 @@ void sendToRoom(char *buf, int nread)
 {
 	printf("<> message: %s\n", buf); // вывод на сервере
 
-	connectedClientSocket.for_each(SendWrapper);
+	ForEach(&connectedClientSocket, SendCallback, NULL);
 }
 
-void SendWrapper (int number) 
+bool SendCallback (list_int_node *node, void *arg) 
 {
-	char buf[256];
+	char buf[256]; // todo
+	int number = 801010; // todo
+
 	send(number, buf, 0, 0);
+
+	return false;
 }

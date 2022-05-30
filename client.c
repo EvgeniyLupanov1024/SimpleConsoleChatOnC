@@ -33,10 +33,10 @@ int main()
 	Inet_pton(AF_INET, serverAddress, &addr.sin_addr);
 	Connect(fd, (struct sockaddr *) &addr, sizeof addr);
 
-	pthread_t thread;
-	pthread_create(&thread, NULL, grabAndPrintMessages, NULL);
+	pthread_t threadWrite;
+	pthread_create(&threadWrite, NULL, writeAndSendMessages, NULL);
 
-	writeAndSendMessages(NULL);
+	grabAndPrintMessages(NULL);
 
 	close(fd);
 
@@ -52,8 +52,15 @@ void * grabAndPrintMessages(void * arg)
 		memset(buf, '\0', nread);
 
 		nread = recv(fd, buf, bufferLen, 0);
+		if (nread == 0) {
+			printf("Server is gone =_=");
+			break;
+		}
+
 		printf("<> message: %s\n", buf);
 	}
+
+	return NULL;
 }
 
 void * writeAndSendMessages(void * arg)
@@ -70,4 +77,6 @@ void * writeAndSendMessages(void * arg)
 		
 		send(fd, buf, nread, 0);
 	}
+
+	return NULL;
 }

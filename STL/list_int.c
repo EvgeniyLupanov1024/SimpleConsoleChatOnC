@@ -76,3 +76,17 @@ list_int list_int_init()
 
     return empty_list;
 }
+
+
+void Print(list_int *list)
+{
+    printf("< before ForEach >");
+    ForEach(list, PrintCallback, NULL);
+    printf("< after ForEach >");
+}
+
+bool PrintCallback (list_int_node *node, void *arg)
+{
+    printf("value:%d (%p | %p | %p)", node->value, node->prev_node, node, node->next_node);
+    return true;
+}

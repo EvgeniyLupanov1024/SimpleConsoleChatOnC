@@ -28,3 +28,6 @@ list_int_node * ForEach (list_int *list, bool (* callback) (list_int_node *node,
  * Возращает пустой лист. 
  */
 list_int list_int_init();
+
+void Print(list_int *list);
+bool PrintCallback (list_int_node *node, void *arg);

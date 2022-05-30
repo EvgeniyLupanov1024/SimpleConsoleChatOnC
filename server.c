@@ -96,6 +96,7 @@ void * forwardingClient(void *arg)
 
 		nread = recv(fd, buf, bufferLen, 0);
 		if (nread == 0) {
+			printf("some one disconnect\n");
 			break;
 		}
 
@@ -105,14 +106,13 @@ void * forwardingClient(void *arg)
 	close(fd);
 	Remove(&connectedClientSocket, fd);
 
-	printf("some one disconnect\n");
-
 	return NULL;
 }
 
 void sendToRoom(char *buf) 
 {
 	printf("<> message: %s\n", buf); // вывод на сервере
+	Print(&connectedClientSocket);
 
 	ForEach(&connectedClientSocket, SendCallback, buf);
 }

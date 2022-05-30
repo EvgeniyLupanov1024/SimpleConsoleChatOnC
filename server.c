@@ -21,13 +21,14 @@ void waitFreeSocket();
 void * forwardingClient(void *arg);
 
 bool SendCallback (list_int_node *node, void *arg);
-void sendToRoom(char *buf, int nread);
+void sendToRoom(char *buf);
 
 int serverSocket;
 struct sockaddr_in addr;
 socklen_t addrlen;
 
-int ConnectCount;
+const int maxConnectCount = 5;
+const int bufferLen = 256;
 list_int connectedClientSocket;
 
 int main()
@@ -42,7 +43,7 @@ int main()
 
 	Bind(serverSocket, (struct sockaddr *) &addr, sizeof addr);
 
-	Listen(serverSocket, ConnectCount);
+	Listen(serverSocket, maxConnectCount);
 
 	while(true)
 	{
@@ -55,7 +56,6 @@ int main()
 
 void init() 
 {
-	ConnectCount = 5;
 	connectedClientSocket = list_int_init();
 }
 
@@ -76,7 +76,7 @@ void waitFreeSocket()
 {
 	while(true)
 	{
-		if (connectedClientSocket.count >= ConnectCount) {
+		if (connectedClientSocket.count >= maxConnectCount) {
 			sleep(1);
 		} else {
 			break;
@@ -87,18 +87,19 @@ void waitFreeSocket()
 void * forwardingClient(void *arg)
 {
 	int fd = * (int *) arg;
-	int nread;
+	char buf[bufferLen];
+	int nread = bufferLen;
 
 	while(true)
 	{
-		char buf[256];
-		nread = recv(fd, buf, 256, 0);
+		memset(buf, '\0', nread); // чищу буфер
 
+		nread = recv(fd, buf, bufferLen, 0);
 		if (nread == 0) {
 			break;
 		}
 
-		sendToRoom(buf, nread);
+		sendToRoom(buf);
 	}
 
 	close(fd);
@@ -109,19 +110,22 @@ void * forwardingClient(void *arg)
 	return NULL;
 }
 
-void sendToRoom(char *buf, int nread) 
+void sendToRoom(char *buf) 
 {
 	printf("<> message: %s\n", buf); // вывод на сервере
 
-	ForEach(&connectedClientSocket, SendCallback, NULL);
+	ForEach(&connectedClientSocket, SendCallback, buf);
 }
 
 bool SendCallback (list_int_node *node, void *arg) 
 {
-	char buf[256]; // todo
-	int number = 801010; // todo
+	char *buf = (char *) arg;
+	int number = strlen(buf);
 
-	send(number, buf, 0, 0);
+	int result = send(node->value, buf, number, 0);
+	if (result == -1) {
+		printf("Send error on socket %d\n", node->value);
+	}
 
-	return false;
+	return true;
 }

@@ -33,10 +33,10 @@ void Remove (list_int *list, int number)
 
 bool RemoveCallback (list_int_node *node, void *arg)
 {
-    int remotable_value = * (int *) arg;
+    int removable_value = * (int *) arg;
 
-    if (remotable_value != node->value) {
-        return false;
+    if (removable_value != node->value) {
+        return true;
     }
 
     if (node->next_node != NULL) {
@@ -47,10 +47,10 @@ bool RemoveCallback (list_int_node *node, void *arg)
     }
 
     free(node);
-    return true;
+    return false;
 }
 
-void ForEach (list_int *list, bool (* callback) (list_int_node *node, void *arg), void *arg)
+list_int_node * ForEach (list_int *list, bool (* callback) (list_int_node *node, void *arg), void *arg)
 {
     list_int_node *iterator = list->last_node;
 
@@ -62,6 +62,8 @@ void ForEach (list_int *list, bool (* callback) (list_int_node *node, void *arg)
 
         iterator = iterator->prev_node;
     }
+
+    return iterator;
 }
 
 list_int list_int_init()

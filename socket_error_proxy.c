@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
 int Socket(int domain, int type, int protocol)
 {
 	int result = socket(domain, type, protocol);	

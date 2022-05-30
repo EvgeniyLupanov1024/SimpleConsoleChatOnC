@@ -74,3 +74,13 @@ int Inet_pton(int af, const char *src, void *dist)
 
 	return result;
 }
+
+int Send (int sockfd, const char *buf, int len, int flags)
+{
+	int result = send(sockfd, buf, len, flags);
+	if (result == -1) {
+		printf("send failed on socket %d\n", sockfd);
+	}
+
+	return result;
+}

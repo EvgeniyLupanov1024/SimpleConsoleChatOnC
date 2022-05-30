@@ -23,6 +23,7 @@ void AddFirst (list_int *list, int number)
         list->last_node->next_node = adding_node;
     }
 
+    ++list->count;
     list->last_node = adding_node;
 }
 

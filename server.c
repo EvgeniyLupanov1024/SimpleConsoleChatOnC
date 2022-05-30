@@ -120,12 +120,8 @@ void sendToRoom(char *buf)
 bool SendCallback (list_int_node *node, void *arg) 
 {
 	char *buf = (char *) arg;
-	int number = strlen(buf);
 
-	int result = send(node->value, buf, number, 0);
-	if (result == -1) {
-		printf("Send error on socket %d\n", node->value);
-	}
+	Send(node->value, buf, strlen(buf), 0);
 
 	return true;
 }

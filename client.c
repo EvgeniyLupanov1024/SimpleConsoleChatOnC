@@ -11,7 +11,7 @@
 
 #include "socket_error_proxy.c"
 
-void * grabAndPrintEnterMessages(void * arg);
+void * grabAndPrintMessages(void * arg);
 void * writeAndSendMessages(void * arg);
 
 int fd;
@@ -34,7 +34,7 @@ int main()
 	Connect(fd, (struct sockaddr *) &addr, sizeof addr);
 
 	pthread_t thread;
-	pthread_create(&thread, NULL, grabAndPrintEnterMessages, NULL);
+	pthread_create(&thread, NULL, grabAndPrintMessages, NULL);
 
 	writeAndSendMessages(NULL);
 
@@ -43,7 +43,7 @@ int main()
 	return 0;
 }
 
-void * grabAndPrintEnterMessages(void * arg)
+void * grabAndPrintMessages(void * arg)
 {
 	char buf[bufferLen];
 	int nread = bufferLen;

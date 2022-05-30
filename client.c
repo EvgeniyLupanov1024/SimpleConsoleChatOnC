@@ -53,7 +53,7 @@ void * grabAndPrintMessages(void * arg)
 
 		nread = recv(fd, buf, bufferLen, 0);
 		if (nread == 0) {
-			printf("Server is gone =_=");
+			printf("Server is gone ._.\n");
 			break;
 		}
 

@@ -29,7 +29,13 @@ void AddFirst (list_int *list, int number)
 
 void Remove (list_int *list, int number) 
 {
-    ForEach(list, RemoveCallback, &number);
+    list_int_node *iterator = ForEach(list, RemoveCallback, &number);
+
+    if (iterator == list->last_node) {
+        list->last_node = iterator->prev_node;
+    }
+
+    free(iterator);
 }
 
 bool RemoveCallback (list_int_node *node, void *arg)
@@ -47,7 +53,6 @@ bool RemoveCallback (list_int_node *node, void *arg)
         node->prev_node->next_node = node->next_node;
     }
 
-    free(node);
     return false;
 }
 
@@ -80,13 +85,11 @@ list_int list_int_init()
 
 void Print(list_int *list)
 {
-    printf("< before ForEach >");
     ForEach(list, PrintCallback, NULL);
-    printf("< after ForEach >");
 }
 
 bool PrintCallback (list_int_node *node, void *arg)
 {
-    printf("value:%d (%p | %p | %p)", node->value, node->prev_node, node, node->next_node);
+    printf("value:%d (%p | %p | %p)\n", node->value, node->prev_node, node, node->next_node);
     return true;
 }

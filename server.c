@@ -65,10 +65,9 @@ void waitNewClientConect()
 
 	int fd = Accept(serverSocket, (struct sockaddr *) &addr, &addrlen);
 	AddFirst(&connectedClientSocket, fd);
-
 	printf("some one connect\n");
 
-	pthread_t thread;
+	pthread_t thread; // todo - без утечек
 	pthread_create(&thread, NULL, forwardingClient, &fd);
 }
 
@@ -112,7 +111,6 @@ void * forwardingClient(void *arg)
 void sendToRoom(char *buf) 
 {
 	printf("<> message: %s\n", buf); // вывод на сервере
-	Print(&connectedClientSocket);
 
 	ForEach(&connectedClientSocket, SendCallback, buf);
 }

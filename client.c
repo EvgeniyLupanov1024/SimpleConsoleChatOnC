@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "socket_error_proxy.c"
+#include "socket_error_proxy.h"
 
 void * grabAndPrintMessages(void * arg);
 void * writeAndSendMessages(void * arg);
@@ -53,7 +53,7 @@ void * grabAndPrintMessages(void * arg)
 
 		nread = recv(fd, buf, bufferLen, 0);
 		if (nread == 0) {
-			printf("Server is gone ._.\n");
+			printf("\nServer is gone ._.\n");
 			break;
 		}
 

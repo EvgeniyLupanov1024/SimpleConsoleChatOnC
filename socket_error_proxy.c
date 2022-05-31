@@ -1,8 +1,4 @@
-#include "headers/socket_error_proxy.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "socket_error_proxy.h"
 
 int Socket(int domain, int type, int protocol)
 {

@@ -11,8 +11,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "socket_error_proxy.c"
-#include "STL/list_int.c"
+#include "socket_error_proxy.h"
+#include "list_int.h"
 
 void init();
 

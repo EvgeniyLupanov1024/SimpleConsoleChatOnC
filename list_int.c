@@ -1,15 +1,4 @@
-#include "headers/list_int.h"
-
-struct list_int {
-    int count;
-    list_int_node *last_node;
-};
-
-struct list_int_node {
-    int value;
-    list_int_node *next_node;
-    list_int_node *prev_node;
-};
+#include "list_int.h"
 
 void AddFirst (list_int *list, int number) 
 {
@@ -29,13 +18,13 @@ void AddFirst (list_int *list, int number)
 
 void Remove (list_int *list, int number) 
 {
-    list_int_node *iterator = ForEach(list, RemoveCallback, &number);
+    list_int_node *iterator_removable = ForEach(list, RemoveCallback, &number);
 
-    if (iterator == list->last_node) {
-        list->last_node = iterator->prev_node;
+    if (iterator_removable == list->last_node) {
+        list->last_node = iterator_removable->prev_node;
     }
 
-    free(iterator);
+    free(iterator_removable);
 }
 
 bool RemoveCallback (list_int_node *node, void *arg)

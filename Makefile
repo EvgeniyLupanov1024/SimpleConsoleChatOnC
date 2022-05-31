@@ -1,7 +1,19 @@
 all: server client
 
-server: server.c
-	gcc server.c -o server -Wall -lpthread
+server: server.o socket_error_proxy.o list_int.o
+	gcc server.o socket_error_proxy.o list_int.o -o server -Wall -lpthread
 
-client: client.c
-	gcc client.c -o client -Wall -lpthread
+client: client.o socket_error_proxy.o
+	gcc client.o socket_error_proxy.o -o client -Wall -lpthread
+
+server.o: server.c
+	gcc -c server.c
+
+client.o: client.c
+	gcc -c client.c
+
+socket_error_proxy.o: socket_error_proxy.c socket_error_proxy.h
+	gcc -c socket_error_proxy.c
+
+list_int.o: list_int.c list_int.h
+	gcc -c list_int.c

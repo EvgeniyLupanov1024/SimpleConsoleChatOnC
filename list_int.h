@@ -1,5 +1,22 @@
+#ifndef LIST_INT_H
+#define LIST_INT_H
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+
 typedef struct list_int list_int;
 typedef struct list_int_node list_int_node;
+
+struct list_int {
+    int count;
+    list_int_node *last_node;
+};
+struct list_int_node {
+    int value;
+    list_int_node *next_node;
+    list_int_node *prev_node;
+};
 
 /**
  * Добавляет переданное значение в начало списка. 
@@ -31,3 +48,5 @@ list_int list_int_init();
 
 void Print(list_int *list);
 bool PrintCallback (list_int_node *node, void *arg);
+
+#endif

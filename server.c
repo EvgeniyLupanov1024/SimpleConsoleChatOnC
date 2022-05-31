@@ -35,10 +35,10 @@ int main()
 {
 	init();
 
-	serverSocket = Socket(AF_INET, SOCK_STREAM, 0); // SOCK_STREAM -- TSP
+	serverSocket = Socket(AF_INET, SOCK_STREAM, 0);
 
-	addr.sin_family = AF_INET; // семейство адресов для IPv4
-	addr.sin_port = htons(8011); // порт, который будет слушать сервер
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(8011);
 	addrlen = sizeof addr;
 
 	Bind(serverSocket, (struct sockaddr *) &addr, sizeof addr);
@@ -110,7 +110,7 @@ void * forwardingClient(void *arg)
 
 void sendToRoom(char *buf) 
 {
-	printf("<> message: %s\n", buf); // вывод на сервере
+	printf("<> message: %s\n", buf);
 
 	ForEach(&connectedClientSocket, SendCallback, buf);
 }

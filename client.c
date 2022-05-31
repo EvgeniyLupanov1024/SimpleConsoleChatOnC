@@ -26,8 +26,8 @@ int main()
 	fd = Socket(AF_INET, SOCK_STREAM, 0);
 
 	struct sockaddr_in addr = {0};
-	addr.sin_family = AF_INET; // семейство адресов для IPv4
-	addr.sin_port = htons(8011); // порт (по этому порту конектимся)
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(8011);
 
 	Inet_pton(AF_INET, serverAddress, &addr.sin_addr);
 	Connect(fd, (struct sockaddr *) &addr, sizeof addr);

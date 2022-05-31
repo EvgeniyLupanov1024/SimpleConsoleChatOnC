@@ -72,7 +72,6 @@ list_int list_int_init()
     return empty_list;
 }
 
-
 void Print(list_int *list)
 {
     ForEach(list, PrintCallback, NULL);

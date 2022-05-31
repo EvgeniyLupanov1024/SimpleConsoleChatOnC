@@ -1,10 +1,10 @@
 all: server client
 
 server: server.o socket_error_proxy.o list_int.o
-	gcc server.o socket_error_proxy.o list_int.o -o server -Wall -lpthread
+	gcc server.o socket_error_proxy.o list_int.o -o server.exe -Wall -lpthread
 
 client: client.o socket_error_proxy.o
-	gcc client.o socket_error_proxy.o -o client -Wall -lpthread
+	gcc client.o socket_error_proxy.o -o client.exe -Wall -lpthread
 
 server.o: server.c
 	gcc -c server.c

@@ -12,7 +12,7 @@ void AddFirst (list_int *list, int number)
         list->last_node->next_node = adding_node;
     }
 
-    ++list->count;
+    list->count += 1;
     list->last_node = adding_node;
 }
 
@@ -24,6 +24,7 @@ void Remove (list_int *list, int number)
         list->last_node = iterator_removable->prev_node;
     }
 
+    list->count -= 1;
     free(iterator_removable);
 }
 

@@ -16,13 +16,12 @@ void * writeAndSendMessages(void * arg);
 
 int fd;
 const int bufferLen = 256;
-// char serverAddress[256];
-char serverAddress[256] = "127.0.0.1";
+char serverAddress[256];
 
 int main()
 {
-	// printf("Enter server address: ");
-	// scanf("%s", serverAddress);
+	printf("Enter server address: ");
+	scanf("%s", serverAddress);
 
 	fd = Socket(AF_INET, SOCK_STREAM, 0);
 

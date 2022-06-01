@@ -7,11 +7,10 @@
 #include <string.h>
 
 #include <sys/types.h>        
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "socket_error_proxy.h"
+#include "socket_proxy.h"
 #include "list_int.h"
 
 void init();
@@ -67,7 +66,7 @@ void waitNewClientConect()
 	AddFirst(&connectedClientSocket, fd);
 	printf("some one connect\n");
 
-	pthread_t thread; // todo - без утечек
+	pthread_t thread;
 	pthread_create(&thread, NULL, forwardingClient, &fd);
 }
 

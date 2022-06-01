@@ -1,7 +1,7 @@
-client
-client.exe
-server
-server.exe
+client-linux.out
+client-win.exe
+server-linux.out
+server-win.exe
 
 *.o
 

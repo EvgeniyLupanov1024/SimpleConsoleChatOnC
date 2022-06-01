@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "socket_error_proxy.h"
+#include "socket_proxy.h"
 
 void * grabAndPrintMessages(void * arg);
 void * writeAndSendMessages(void * arg);

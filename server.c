@@ -40,7 +40,7 @@ int main()
 	addr.sin_port = htons(8011);
 	addrlen = sizeof addr;
 
-	Bind(serverSocket, (struct sockaddr *) &addr, sizeof addr);
+	Bind(serverSocket, (struct sockaddr *) &addr, addrlen);
 
 	Listen(serverSocket, maxConnectCount);
 

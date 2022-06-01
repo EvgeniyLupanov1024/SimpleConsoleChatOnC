@@ -17,12 +17,3 @@ socket_proxy.o: socket_proxy.c socket_proxy.h
 
 list_int.o: list_int.c list_int.h
 	gcc -c list_int.c
-
-## WINDOWS
-windows: server-win client-win
-
-server-win: server.c socket_proxy.c socket_proxy.h list_int.c list_int.h
-	x86_64-w64-mingw32-gcc server.c socket_proxy.c list_int.c -o server-win.exe
-
-client-win: client.c socket_proxy.c socket_proxy.h
-	x86_64-w64-mingw32-gcc client.c socket_proxy.c -o client-win.exe

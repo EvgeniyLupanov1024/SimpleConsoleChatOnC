@@ -1,7 +1,8 @@
-client-linux.out
-client-win.exe
-server-linux.out
-server-win.exe
+chat-server-linux.out
+chat-client-linux.out
+
+chat-server-win.exe
+chat-client-win.exe
 
 *.o
 

@@ -1,10 +1,19 @@
+ifeq ($(OS),Windows_NT)
+	SERVER_EXE = chat-server-win.exe
+	CLIENT_EXE = chat-client-win.exe
+else
+	SERVER_EXE = chat-server-linux.out
+	CLIENT_EXE = chat-client-linux.out
+endif
+
+
 all: server client
 
 server: server.o socket_proxy.o list_int.o
-	gcc server.o socket_proxy.o list_int.o -o server-linux.out -Wall -lpthread
+	gcc server.o socket_proxy.o list_int.o -o ${SERVER_EXE} -Wall -lpthread
 
 client: client.o socket_proxy.o
-	gcc client.o socket_proxy.o -o client-linux.out -Wall -lpthread
+	gcc client.o socket_proxy.o -o ${CLIENT_EXE} -Wall -lpthread
 
 server.o: server.c
 	gcc -c server.c
@@ -17,3 +26,7 @@ socket_proxy.o: socket_proxy.c socket_proxy.h
 
 list_int.o: list_int.c list_int.h
 	gcc -c list_int.c
+
+
+clear:
+	rm *.o
